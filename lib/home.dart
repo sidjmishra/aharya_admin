@@ -1,6 +1,7 @@
 import 'package:aharyaadmin/AharyaBlog/HomeBlog.dart';
 import 'package:aharyaadmin/AharyaBlog/UploadBlog.dart';
 import 'package:aharyaadmin/AharyaChat/ChatRoom.dart';
+import 'package:aharyaadmin/BribeCases/bribe.dart';
 import 'package:aharyaadmin/LiveStream/index.dart';
 import 'package:aharyaadmin/model/contants.dart';
 import 'package:aharyaadmin/services/auth.dart';
@@ -212,9 +213,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) {
-                          return ;
-                        }
+                        builder: (context) => BribeCases()
                     )
                 );
               },
