@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
         for(var index = 0; index < snapshotUserName.documents.length; index++) {
           print(index);
           if(snapshotUserName.documents[index].data['email'] == email) {
-            Constants.myName = snapshotUserName.documents[index].data['username'];
+            Constants.myName = snapshotUserName.documents[index].data['displayName'];
             Constants.myEmail = snapshotUserName.documents[index].data['email'];
             Constants.myUid = snapshotUserName.documents[index].data['uid'];
             print(Constants.myName);

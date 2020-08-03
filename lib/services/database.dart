@@ -11,7 +11,7 @@ class UserDatabaseServices {
   Future userSigned(String email, String city) async {
 //    cityName = city.substring(0, 1).toUpperCase();
     return await userCollection.document(uid).setData({
-      'username': city.toUpperCase() + '@Aharya',
+      'displayName': city.toUpperCase() + '@Aharya',
       'email': email,
       'uid': uid,
       'city': city,
@@ -23,7 +23,7 @@ class UserDatabaseServices {
 class DataMethods {
   getUserByName(String username) async {
     return await Firestore.instance.collection('users')
-        .where('username', isEqualTo: username)
+        .where('displayName', isEqualTo: username)
         .getDocuments();
   }
 
