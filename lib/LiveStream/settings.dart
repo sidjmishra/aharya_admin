@@ -1,2 +1,2 @@
 // Agora AppId
-const APP_ID = <API_KEY>;
+const APP_ID = '';

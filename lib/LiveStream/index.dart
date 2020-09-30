@@ -16,8 +16,8 @@ class IndexPage extends StatefulWidget {
 }
 
 class IndexState extends State<IndexPage> {
-
   final PermissionHandlerPlatform _permissionHandler = PermissionHandlerPlatform.instance;
+
   /// create a channelController to retrieve text value
   final _channelController = TextEditingController();
 
@@ -25,9 +25,9 @@ class IndexState extends State<IndexPage> {
   bool _validateError = false;
 
   ClientRole _role = ClientRole.Broadcaster;
-  
+
   QuerySnapshot queryHistory;
-  
+
   Future getHistory() async {
     queryHistory = await Firestore.instance.collection('LiveStream').orderBy('Time', descending: true).getDocuments();
     return queryHistory.documents;
@@ -44,7 +44,8 @@ class IndexState extends State<IndexPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Aharya Stream',
+        title: Text(
+          'Aharya Stream',
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -64,16 +65,15 @@ class IndexState extends State<IndexPage> {
                         children: <Widget>[
                           Expanded(
                               child: TextField(
-                                controller: _channelController,
-                                decoration: InputDecoration(
-                                  errorText:
-                                  _validateError ? 'Channel name is mandatory' : null,
-                                  border: UnderlineInputBorder(
-                                    borderSide: BorderSide(width: 1),
-                                  ),
-                                  hintText: 'Channel name',
-                                ),
-                              ))
+                            controller: _channelController,
+                            decoration: InputDecoration(
+                              errorText: _validateError ? 'Channel name is mandatory' : null,
+                              border: UnderlineInputBorder(
+                                borderSide: BorderSide(width: 1),
+                              ),
+                              hintText: 'Channel name',
+                            ),
+                          ))
                         ],
                       ),
                       Column(
@@ -123,7 +123,8 @@ class IndexState extends State<IndexPage> {
                   ),
                 ),
 
-                Text('User Stream History'  ,
+                Text(
+                  'User Stream History',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0,
@@ -134,81 +135,84 @@ class IndexState extends State<IndexPage> {
                 // Status History
                 Expanded(
                   child: FutureBuilder(
-                    future: getHistory(),
-                    builder: (context, snapshot) {
-                      if(snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(
-                          child: Text('No Data Available'),
-                        );
-                      } else {
-                        return ListView.builder(
-                          itemCount: snapshot.data.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color:
-                                      Color.fromRGBO(225, 95, 27, .3),
-                                      blurRadius: 20,
-                                      offset: Offset(0, 10),
-                                    ),
-                                  ],
-                                ),
-                                width: MediaQuery.of(context).size.width,
-                                child: Padding(
-                                  padding: EdgeInsets.all(10.0),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      snapshot.data[index].data['Status'] == 'Live'
-                                          ? Text('Status: ' + snapshot.data[index].data['Status'],
-                                        style: TextStyle(
-                                            color: Colors.green,
-                                            fontSize: 18.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ) : Text('Status: ' + snapshot.data[index].data['Status'],
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                      future: getHistory(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Center(
+                            child: Text('No Data Available'),
+                          );
+                        } else {
+                          return ListView.builder(
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Color.fromRGBO(225, 95, 27, .3),
+                                        blurRadius: 20,
+                                        offset: Offset(0, 10),
                                       ),
-                                      Text('Channel name: '+ snapshot.data[index].data['Channel Name'],
-                                          style: TextStyle(
-                                            fontSize: 18.0,
-                                            fontWeight: FontWeight.bold,
-                                          )
-                                      ),
-                                      SizedBox(height: 5.0),
-                                      Text('Stream Location: '+ snapshot.data[index].data['Location'],
-                                        maxLines: 4,
-                                      ),
-                                      SizedBox(height: 5.0),
-                                      Text('Streamer Name: '+ snapshot.data[index].data['Streamer Name'],
-                                        maxLines: 2,
-                                      ),
-                                      SizedBox(height: 5.0),
-                                      Text('Streamer Username: '+ snapshot.data[index].data['Username'],
-                                        maxLines: 2,
-                                      ),
-                                      SizedBox(height: 5.0),
-                                      Text('Date & Time: ' + snapshot.data[index].data['DateTime'].toString().substring(0, 16)),
                                     ],
                                   ),
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(10.0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        snapshot.data[index].data['Status'] == 'Live'
+                                            ? Text(
+                                                'Status: ' + snapshot.data[index].data['Status'],
+                                                style: TextStyle(
+                                                  color: Colors.green,
+                                                  fontSize: 18.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              )
+                                            : Text(
+                                                'Status: ' + snapshot.data[index].data['Status'],
+                                                style: TextStyle(
+                                                  color: Colors.red,
+                                                  fontSize: 18.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                        Text('Channel name: ' + snapshot.data[index].data['Channel Name'],
+                                            style: TextStyle(
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.bold,
+                                            )),
+                                        SizedBox(height: 5.0),
+                                        Text(
+                                          'Stream Location: ' + snapshot.data[index].data['Location'],
+                                          maxLines: 4,
+                                        ),
+                                        SizedBox(height: 5.0),
+                                        Text(
+                                          'Streamer Name: ' + snapshot.data[index].data['Streamer Name'],
+                                          maxLines: 2,
+                                        ),
+                                        SizedBox(height: 5.0),
+                                        Text(
+                                          'Streamer Username: ' + snapshot.data[index].data['Username'],
+                                          maxLines: 2,
+                                        ),
+                                        SizedBox(height: 5.0),
+                                        Text('Date & Time: ' + snapshot.data[index].data['DateTime'].toString().substring(0, 16)),
+                                      ],
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                        );
-                      }
-                    }
-                  ),
+                              );
+                            },
+                          );
+                        }
+                      }),
                 ),
                 SizedBox(height: 100.0),
               ],
@@ -219,16 +223,25 @@ class IndexState extends State<IndexPage> {
     );
   }
 
+  // will open the permission handler
+  Future<bool> _requestPermission(Permission permission) async {
+    var result = await _permissionHandler.requestPermissions([permission]);
+    if (result[permission] == PermissionStatus.granted) {
+      return true;
+    }
+    return false;
+  }
+
   Future<void> onJoin() async {
 //    var result = await _permissionHandler.requestPermissions([PermissionGroup.contacts]);
     // update input validation
     setState(() {
-      _channelController.text.isEmpty
-          ? _validateError = true
-          : _validateError = false;
+      _channelController.text.isEmpty ? _validateError = true : _validateError = false;
     });
     if (_channelController.text.isNotEmpty) {
       // await for camera and mic permissions before pushing video page
+      await _requestPermission(Permission.camera);
+      await _requestPermission(Permission.microphone);
       // push video page with given channel name
       await Navigator.push(
         context,
