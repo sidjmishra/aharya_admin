@@ -229,8 +229,6 @@ class IndexState extends State<IndexPage> {
     });
     if (_channelController.text.isNotEmpty) {
       // await for camera and mic permissions before pushing video page
-      await _requestPermission(Permission.camera);
-      await _requestPermission(Permission.microphone);
       // push video page with given channel name
       await Navigator.push(
         context,
@@ -242,13 +240,5 @@ class IndexState extends State<IndexPage> {
         ),
       );
     }
-  }
-
-  Future<bool> _requestPermission(Permission permission) async {
-    var result = await _permissionHandler.requestPermissions([permission]);
-    if (result[permission] == PermissionStatus.granted) {
-      return true;
-    }
-    return false;
   }
 }
