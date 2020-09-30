@@ -1,6 +1,8 @@
 # aharyaadmin
 
-A new Flutter application.
+Admin application to monitor all the bribe activities and report.
+The admin can interact with the person who has been bribed with the help of video call.
+And can also look through the some blogs which has been posted by the users.
 
 ## Getting Started
 
