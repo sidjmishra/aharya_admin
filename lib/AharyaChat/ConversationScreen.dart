@@ -47,15 +47,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
     );
   }
 
-  @override
-  void initState() {
-    dataMethods.getConversationMessage(widget.chatRoomId).then((value) {
-      setState(() {
-        chatMessageStream = value;
-      });
-    });
-    super.initState();
-  }
+  // Loading messages before the user could chat
 
   @override
   Widget build(BuildContext context) {
