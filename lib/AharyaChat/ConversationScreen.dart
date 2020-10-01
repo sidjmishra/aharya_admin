@@ -14,6 +14,16 @@ class ConversationScreen extends StatefulWidget {
 
 class _ConversationScreenState extends State<ConversationScreen> {
 
+@override
+  void initState() {
+    dataMethods.getConversationMessage(widget.chatRoomId).then((value) {
+      setState(() {
+        chatMessageStream = value;
+      });
+    });
+    super.initState();
+  }
+
   DataMethods dataMethods = new DataMethods();
   TextEditingController message = new TextEditingController();
 
